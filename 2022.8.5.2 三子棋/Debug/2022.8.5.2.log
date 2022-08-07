@@ -1,2 +1,5 @@
-﻿  game.c
-  2022.8.5.2.vcxproj -> D:\VS2019\项目\c-\2022.8.5.2\Debug\2022.8.5.2.exe
+﻿D:\VS2019\IDE\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(513,5): warning MSB8028: 中间目录(Debug\)包含从另一个项目(2022.8.5.2.vcxproj)共享的文件。   这会导致错误的清除和重新生成行为。
+  game.c
+  源.c
+  正在生成代码...
+  2022.8.5.2.vcxproj -> D:\VS2019\项目\c-\2022.8.5.2 三子棋\Debug\2022.8.5.2三子棋.exe
