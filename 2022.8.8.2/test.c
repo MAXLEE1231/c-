@@ -32,21 +32,21 @@
 //	return 0;
 //}
 
-//// 输出乘法口诀表
-//int main()
-//{
-//	int x = 0;
-//	for (x = 1;x < 10;x++)
-//	{
-//		int y = 0;
-//		for (y = 1;y <= x;y++)
-//		{
-//			int z = x * y;
-//			printf("%d * %d = %d  ", y, x, z);
-//		}
-//		printf("\n\n");
-//	}
-//}
+// 输出乘法口诀表
+int main()
+{
+	int x = 0;
+	for (x = 1;x < 10;x++)
+	{
+		int y = 0;
+		for (y = 1;y <= x;y++)
+		{
+			int z = x * y;
+			printf("%d * %d = %d  ", y, x, z);
+		}
+		printf("\n\n");
+	}
+}
 
 ////判断1000年---2000年之间的闰年
 //int main()
