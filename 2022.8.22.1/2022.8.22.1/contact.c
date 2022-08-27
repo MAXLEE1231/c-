@@ -1,18 +1,63 @@
 #define _CRT_SECURE_NO_WARNINGS 1
 #include"contact.h"
 
-void InitContact(Contact* pc)
+//void InitContact(Contact* pc) //静态初始化
+//{
+//	pc->sz = 0;
+//	memset(pc->data, 0, sizeof(pc->data));//内存初始化
+//}
+
+void InitContact(Contact* pc)//动态初始化
 {
+	pc->data = (PeoInfo*)malloc(DEFAULT_SZ * sizeof(PeoInfo));
+	if (pc->data == NULL)
+	{
+		perror("InitContact");
+		return;
+	}
 	pc->sz = 0;
-	memset(pc->data, 0, sizeof(pc->data));//内存初始化
+	pc->capacity = DEFAULT_SZ;
 }
 
-void AddContact(Contact* pc)
+//void AddContact(Contact* pc)//静态增加
+//{
+//	if (pc->sz > 1000)
+//	{
+//		printf("储存已满\n");
+//		return;
+//	}
+//	printf("请输入名字：\n");
+//	scanf("%s", pc->data[pc->sz].name);
+//	printf("请输入年龄：\n");
+//	scanf("%d", &(pc->data[pc->sz].age));
+//	printf("请输入性别：\n");
+//	scanf("%s", pc->data[pc->sz].sex);
+//	printf("请输入电话：\n");
+//	scanf("%s", pc->data[pc->sz].tele);
+//	printf("请输入地址：\n");
+//	scanf("%s", pc->data[pc->sz].addr);
+//
+//	pc->sz++;
+//	printf("增加成功\n");
+//}
+
+void AddContact(Contact* pc)//动态增加
 {
-	if (pc->sz > 1000)
+	if (pc->sz == pc->capacity)//增容
 	{
-		printf("储存已满\n");
-		return;
+		PeoInfo* ptr = (PeoInfo*)realloc(pc->data, (pc->capacity + INC_SZ) * sizeof(PeoInfo));
+		if (ptr != NULL)
+		{
+			pc->data = ptr;
+			pc->capacity += INC_SZ;
+			printf("增容成功\n");
+		}
+		else
+		{
+			perror("AddContact");
+			printf("增加类型失败\n");
+			return;
+		}
 	}
 	printf("请输入名字：\n");
 	scanf("%s", pc->data[pc->sz].name);
@@ -43,7 +88,7 @@ void PrintContact(const Contact* pc)
 	}
 }
 
-static int FindByName(Contact* pc, char* name)
+static int FindByName(const Contact* pc, char* name)
 {
 	int i = 0;
 	for (i = 0;i < pc->sz;i++)
@@ -140,3 +185,11 @@ void ModifyContact(Contact* pc)
 //{
 //
 //}
+
+void DestoryContact(Contact* pc)
+{
+	free(pc->data);
+	pc->data = NULL;
+	pc->sz = 0;
+	pc->capacity = 0;
+}

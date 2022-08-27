@@ -53,6 +53,7 @@ int main()
 			PrintContact(&con);
 			break;
 		case EXIT://退出
+			DestoryContact(&con); //动态版本回收销毁通讯录
 			printf("退出通讯录\n");
 			break;
 		default:
