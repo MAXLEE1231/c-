@@ -49,4 +49,10 @@ void ModifyContact(Contact* pc);//修改
 
 void SortContact(Contact* pc);//排序
 
+void SaveContact(Contact* pc);//保存
+
+void LoadContact(Contact* pc);//加载文件
+
+void check_capacity(Contact* pc);//判断是否增容
+
 void DestoryContact(Contact* pc);//动态版本销毁回收通讯录

@@ -17,7 +17,49 @@ void InitContact(Contact* pc)//动态初始化
 	}
 	pc->sz = 0;
 	pc->capacity = DEFAULT_SZ;
+
+	LoadContact(pc);// 加载文件
 }
+
+void LoadContact(Contact* pc)//加载文件
+{
+	FILE* pf = fopen("contact.dat", "r");
+	if (pf == NULL)
+	{
+		perror("LoadContact");
+		return;
+	}
+	PeoInfo tmp = { 0 };
+	while (fread(&tmp, sizeof(PeoInfo), 1, pf))
+	{
+		check_capacity(pc);
+		pc->data[pc->sz] = tmp;
+		pc->sz++;
+	}
+	fclose(pf);
+	pf = NULL;
+}
+
+void SaveContact(Contact* pc)// 保存文件
+{
+	FILE* pf = fopen("contact.dat", "w");
+	if (pf == NULL)
+	{
+		perror("SaveContact");
+		return;
+	}
+	int i = 0;
+	for (i = 0;i < pc->sz;i++)
+	{
+		fwrite(pc->data + i, sizeof(PeoInfo), 1, pf);
+	}
+
+
+	fclose(pf);
+	pf = NULL;
+	printf("通讯录已保存\n");
+}
+
 
 //void AddContact(Contact* pc)//静态增加
 //{
@@ -40,8 +82,7 @@ void InitContact(Contact* pc)//动态初始化
 //	pc->sz++;
 //	printf("增加成功\n");
 //}
-
-void AddContact(Contact* pc)//动态增加
+void check_capacity(Contact* pc)//判断是否增容
 {
 	if (pc->sz == pc->capacity)//增容
 	{
@@ -55,10 +96,16 @@ void AddContact(Contact* pc)//动态增加
 		else
 		{
 			perror("AddContact");
-			printf("增加类型失败\n");
+			printf("增加联系人失败\n");
 			return;
 		}
 	}
+}
+
+void AddContact(Contact* pc)//动态增加
+{
+	check_capacity(pc);//判断增容
+
 	printf("请输入名字：\n");
 	scanf("%s", pc->data[pc->sz].name);
 	printf("请输入年龄：\n");
@@ -185,6 +232,8 @@ void ModifyContact(Contact* pc)
 //{
 //
 //}
+
+
 
 void DestoryContact(Contact* pc)
 {
