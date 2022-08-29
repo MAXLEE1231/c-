@@ -1,0 +1,31 @@
+int main()
+{
+	FILE* pfread = fopen("test.txt", "r");
+	if (pfread == NULL)
+	{
+		perror("fopen test");
+		return 1;
+	}
+
+	FILE* pfwrite = fopen("test1.txt", "w");
+	if (pfwrite == NULL)
+	{
+		perror("fopen text1");
+		fclose(pfread);
+		pfread = NULL;
+		return 1;
+	}
+
+	//读写文件
+	int ch = 0;
+	while (ch = fgetc(pfread) != EOF)
+	{
+		fputc(ch, pfwrite);
+	}
+
+	fclose(pfread);
+	pfread = NULL;
+	fclose(pfwrite);
+	pfwrite = NULL;
+	return 0;
+}
